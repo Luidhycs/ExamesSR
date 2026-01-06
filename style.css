@@ -910,7 +910,7 @@ body {
     /* Margens internas: 2cm */
     box-sizing: border-box;
     font-family: var(--font-secondary);
-    font-size: 12px;
+    font-size: 14px;
     line-height: 1.6;
     color: #333;
     box-shadow: 0 0 30px rgba(0, 0, 0, 0.1);
