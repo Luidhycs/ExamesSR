@@ -1997,10 +1997,6 @@ class LaudosApp {
     }
 
     clearAll() {
-        if (!confirm('Tem certeza que deseja limpar todos os dados? Isso não pode ser desfeito.')) {
-            return;
-        }
-
         // Preservar dados do profissional se existirem
         const profissionalAtual = {
             nome: this.state.profissional.nome || '',
