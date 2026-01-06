@@ -1997,6 +1997,20 @@ class LaudosApp {
     }
 
     clearAll() {
+        if (!confirm('Tem certeza que deseja limpar todos os dados? Isso não pode ser desfeito.')) {
+            return;
+        }
+
+        // Preservar dados do profissional se existirem
+        const profissionalAtual = {
+            nome: this.state.profissional.nome || '',
+            registro: this.state.profissional.registro || '',
+            tipoRegistro: this.state.profissional.tipoRegistro || 'CRM'
+        };
+
+        // Preservar assinatura se existir
+        const assinaturaAtual = this.state.assinatura ? { ...this.state.assinatura } : null;
+
         // Resetar estado
         this.state = {
             exameAtual: null,
@@ -2006,9 +2020,9 @@ class LaudosApp {
                 idade: '',
                 unidade: ''
             },
-            profissional: profissionalPreservado,
+            profissional: profissionalAtual, // Preserva dados do profissional
             anexos: [],
-            assinatura: assinaturaPreservada,
+            assinatura: assinaturaAtual, // Preserva assinatura
             dadosExame: {},
             ultimoNumero: this.state.ultimoNumero,
             rascunho: null,
@@ -2017,13 +2031,11 @@ class LaudosApp {
             paginaAtual: 0
         };
 
-        // Resetar formulários
+        // Resetar formulários - apenas campos do paciente
         const nomePacienteInput = document.getElementById('nome-paciente');
         const documentoNumeroInput = document.getElementById('documento-numero');
         const idadeInput = document.getElementById('idade');
         const unidadeSelect = document.getElementById('unidade');
-        //const nomeProfissionalInput = document.getElementById('nome-profissional');
-        //const registroNumeroInput = document.getElementById('registro-numero');
         const documentoTipoSelect = document.getElementById('documento-tipo');
         const numeroExameInput = document.getElementById('numero-exame');
 
@@ -2031,38 +2043,67 @@ class LaudosApp {
         if (documentoNumeroInput) documentoNumeroInput.value = '';
         if (idadeInput) idadeInput.value = '';
         if (unidadeSelect) unidadeSelect.selectedIndex = 0;
-        if (nomeProfissionalInput) nomeProfissionalInput.value = '';
-        if (registroNumeroInput) registroNumeroInput.value = '';
         if (documentoTipoSelect) documentoTipoSelect.value = 'Passaporte';
-        if (numeroExameInput) numeroExameInput.value = '';
+
+        // MANTER dados do profissional nos inputs
+        const nomeProfissionalInput = document.getElementById('nome-profissional');
+        const registroNumeroInput = document.getElementById('registro-numero');
+
+        if (nomeProfissionalInput) nomeProfissionalInput.value = this.state.profissional.nome;
+        if (registroNumeroInput) registroNumeroInput.value = this.state.profissional.registro;
 
         // Limpar exame
         const camposExameSection = document.getElementById('campos-exame');
         if (camposExameSection) camposExameSection.style.display = 'none';
 
+        // Mostrar todos os exames
         document.querySelectorAll('.exame-card').forEach(card => {
+            card.style.display = 'flex';
             card.classList.remove('selected');
         });
+
+        // Limpar botão "Voltar para todos os exames"
+        const backButton = document.querySelector('.back-to-all-exames');
+        if (backButton) {
+            backButton.style.display = 'none';
+        }
 
         // Limpar campos dinâmicos do exame
         const camposDinamicos = document.getElementById('campos-dinamicos');
         if (camposDinamicos) camposDinamicos.innerHTML = '';
 
         // Limpar anexos
+        this.state.anexos = [];
         this.renderAnexos();
 
-        // Limpar assinatura
-        if (assinaturaPreservada && assinaturaPreservada.data) {
-            // Manter a assinatura na UI usando o método simplificado
-            this.showSimpleSignature(assinaturaPreservada.data);
-        } else {
-            // Se não há assinatura preservada, mostrar estado vazio
-            this.removeSimpleSignature();
-        }
+        // Atualizar assinatura simplificada
+        const simpleAssinaturaImg = document.getElementById('simple-assinatura-img');
+        const noSignature = document.getElementById('no-signature');
+        const simpleActions = document.getElementById('simple-assinatura-actions');
 
-        if (assinaturaImg) {
-            assinaturaImg.src = '';
-            assinaturaImg.style.display = 'none';
+        if (assinaturaAtual && assinaturaAtual.data) {
+            if (simpleAssinaturaImg) {
+                simpleAssinaturaImg.src = assinaturaAtual.data;
+                simpleAssinaturaImg.style.display = 'block';
+            }
+            if (noSignature) {
+                noSignature.style.display = 'none';
+            }
+            if (simpleActions) {
+                simpleActions.style.display = 'flex';
+            }
+        } else {
+            // Se não há assinatura, mostrar estado vazio
+            if (simpleAssinaturaImg) {
+                simpleAssinaturaImg.src = '';
+                simpleAssinaturaImg.style.display = 'none';
+            }
+            if (noSignature) {
+                noSignature.style.display = 'block';
+            }
+            if (simpleActions) {
+                simpleActions.style.display = 'none';
+            }
         }
 
         // Resetar data e hora para atual
@@ -2077,10 +2118,7 @@ class LaudosApp {
         // Limpar rascunho do localStorage
         this.clearDraft();
 
-        this.showNotification('Todos os dados foram limpos');
-
-        // Mostrar todos os exames novamente
-        this.showAllExames();
+        this.showNotification('Todos os dados foram limpos (exceto profissional e assinatura)');
     }
 
     clearDraft() {
