@@ -333,3 +333,41 @@
     font-size: 0.9em;
     margin-top: 1rem;
 }
+/* Garantir compatibilidade com html2canvas */
+.laudo-preview * {
+    box-sizing: border-box;
+}
+
+/* Forçar display block em elementos estruturais */
+.laudo-header,
+.laudo-section,
+.laudo-footer,
+.laudo-pagina,
+.exame-info,
+.resultados-container,
+.conclusao-content,
+.observacoes-container,
+.anexos-content {
+    display: block !important;
+}
+
+/* Garantir que flex e grid containers mantenham layout */
+.laudo-logo,
+.laudo-section-title,
+.assinatura-container,
+.anexo-pagina-titulo {
+    display: flex !important;
+}
+
+.laudo-grid {
+    display: grid !important;
+}
+
+/* Garantir que elementos inline fiquem inline */
+.laudo-preview span,
+.laudo-preview strong,
+.laudo-preview em,
+.laudo-preview b,
+.laudo-preview i {
+    display: inline !important;
+}
