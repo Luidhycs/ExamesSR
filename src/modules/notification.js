@@ -1,3 +1,9 @@
+/**
+ * © 2026 Luidhy Conceição dos Santos
+ * Custom Restricted License
+ * Usage restricted to the author and the original RP medical group.
+ * Unauthorized use or modification is prohibited.
+ */
 // Sistema de notificações
 class Notification {
     constructor() {
@@ -30,4 +36,5 @@ class Notification {
             this.notification.classList.remove('show');
         }
     }
+
 }
