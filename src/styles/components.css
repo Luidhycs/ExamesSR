@@ -1,3 +1,9 @@
+/**
+ * © 2026 Luidhy Conceição dos Santos
+ * Custom Restricted License
+ * Usage restricted to the author and the original RP medical group.
+ * Unauthorized use or modification is prohibited.
+ */
 /* Botões */
 .btn {
     padding: 0.75rem 1.5rem;
@@ -632,4 +638,5 @@
 
 .btn-back-to-all:hover {
     background: var(--primary-dark);
+
 }
