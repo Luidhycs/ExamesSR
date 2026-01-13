@@ -1,3 +1,9 @@
+/**
+ * © 2026 Luidhy Conceição dos Santos
+ * Custom Restricted License
+ * Usage restricted to the author and the original RP medical group.
+ * Unauthorized use or modification is prohibited.
+ */
 // Anexos e imagens
 class Attachments {
     constructor(app) {
@@ -200,4 +206,5 @@ class Attachments {
         this.app.updateState({ anexos: [] });
         this.renderAnexos();
     }
+
 }
