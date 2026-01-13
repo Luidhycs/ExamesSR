@@ -1,6 +1,8 @@
 ## Sobre o Projeto
 
 Este projeto consiste em um sistema de laudos médicos digitais, desenvolvido para padronizar a emissão de laudos dentro de um ambiente de roleplay (RP) médico, seguindo o padrão institucional do Hospital São Rafael.
+> ⚠️ Este projeto é destinado a fins de roleplay e simulação.
+> Não deve ser utilizado em ambientes médicos reais.
 
 O sistema foi criado para atender necessidades reais do grupo de RP, como:
 - Padronização visual e estrutural dos laudos
@@ -16,6 +18,7 @@ Embora inspirado em práticas reais da área da saúde, este projeto **não se d
 
 Este software foi desenvolvido para **uso exclusivo** de:
 - **Luidhy Conceição dos Santos** (autor e administrador.)
+- GitHub: [github.com/Luidhycs](https://github.com/Luidhycs)
 - **O grupo específico de roleplay médico para o qual o sistema foi criado**, do qual o autor faz parte
 
 Qualquer outro uso — incluindo, mas não se limitando a:
